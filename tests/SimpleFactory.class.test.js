@@ -3,7 +3,7 @@ const {
     WhiteHuman,
     BlackHuman,
     YellowHuman
-} = require('../patterns/SimpleFactory.class');
+} = require('../patterns/Factory.simple.class');
 const assert = require('assert');
 
 class Demo {
