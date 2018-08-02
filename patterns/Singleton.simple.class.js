@@ -9,6 +9,14 @@ class Singleton {
         if (instance) return instance
         instance = this
     }
+
+    setName(name) {
+        this.__name = name;
+    }
+
+    getName() {
+        return this.__name;
+    }
 }
 
 

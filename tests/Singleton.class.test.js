@@ -18,6 +18,8 @@ describe('Singleton',
         assert(singleton01 === singleton01);
         assert(singleton01 === singleton02);
         assert(singleton02 === singleton02);
+        singleton01.setName('name')
+        assert(singleton02.getName() === 'name');
     }),
     it('SingletonSimple1', () => {
         let singleton01 = new SingletonSimple1();
@@ -25,5 +27,7 @@ describe('Singleton',
         assert(singleton01 === singleton01);
         assert(singleton01 === singleton02);
         assert(singleton02 === singleton02);
+        singleton01.setName('name')
+        assert(singleton02.getName() === 'name');
     })
 )

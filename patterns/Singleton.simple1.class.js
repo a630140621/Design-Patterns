@@ -5,6 +5,14 @@ class Singleton {
     constructor() {
         return Singleton.instance;
     }
+
+    setName(name) {
+        this.__name = name;
+    }
+
+    getName() {
+        return this.__name;
+    }
 }
 
 Singleton.instance = new Singleton();
