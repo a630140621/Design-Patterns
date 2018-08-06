@@ -2,7 +2,7 @@
  * 在上一次的代码的基础下(`Templete.class.js`), 来了一个新的游戏, 要求是不需要选择角色, 这时候就需要用到带钩子的模板方法了
  */
 
-class GameTemplete {
+class GameTemplate {
     // 开始游戏
     start() {}
     // 选择人物 return character
@@ -27,7 +27,7 @@ class GameTemplete {
 }
 
 // 已经实现的具体类
-class DNF extends GameTemplete {
+class DNF extends GameTemplate {
     constructor() {
         super()
     }
@@ -49,7 +49,7 @@ class DNF extends GameTemplete {
     }
 }
 
-class NewGame extends GameTemplete {
+class NewGame extends GameTemplate {
     constructor() {
         super()
     }

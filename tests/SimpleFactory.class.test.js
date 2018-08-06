@@ -6,9 +6,7 @@ const {
 } = require('../patterns/Factory.simple.class');
 const assert = require('assert');
 
-class Demo {
-
-}
+class Demo {}
 
 describe('SimpleFactory',
     it('WhiteHuman', () => {

@@ -3,7 +3,7 @@
  * 
  * 目前所有游戏都需要启动, 选择人物, 玩游戏, 关闭游戏
  */
-class GameTemplete {
+class GameTemplate {
     // 开始游戏
     start() {}
     // 选择人物 return character
@@ -22,7 +22,7 @@ class GameTemplete {
 }
 
 
-class DNF extends GameTemplete {
+class DNF extends GameTemplate {
     constructor() {
         super()
     }
@@ -45,7 +45,7 @@ class DNF extends GameTemplete {
 }
 
 
-class QQSpeed extends GameTemplete {
+class QQSpeed extends GameTemplate {
     constructor() {
         super()
     }
