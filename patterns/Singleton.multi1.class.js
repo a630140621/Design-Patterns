@@ -1,6 +1,3 @@
-let instances = {};
-
-
 class Singleton {
     /**
      * 单例模式的一个变种, 只要构造的时候传入相同的名称就会返回同一个对象
@@ -9,14 +6,17 @@ class Singleton {
      */
     constructor(name) {
         this.__name = name;
-        if (instances[this.__name]) return instances[this.__name];
-        // console.log(`do not have this instance#${this.__name} now create one`);
-        instances[this.__name] = this;
+        if (!Singleton['instances'][name]) {
+            Singleton['instances'][name] = this;
+        }
+        return Singleton['instances'][name]
     }
 
     getName() {
         return this.__name;
     }
 }
+
+Singleton.instances = {}
 
 module.exports = Singleton;

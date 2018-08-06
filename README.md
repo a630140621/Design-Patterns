@@ -9,6 +9,22 @@
 2. 在整个项目中需要一个共享访问点或共享数据
 3. 创建一个对象消耗资源过多
 
+## Singleton.simple.class.js
+
+简单的单例模式
+
+## Singleton.simple1.class.js
+
+将单例放到原型上
+
+## Singleton.multi.class.js
+
+单例模式的加强版, 新建实例的时候传入不同的名称即可得到不同的实例, 若名称相同则得到相同的实例
+
+## Singleton.multi1.class.js
+
+将 instances 放到原型链上
+
 # 工厂方法模式
 
 # 模板方法模式
