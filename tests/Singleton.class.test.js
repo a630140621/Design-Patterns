@@ -1,7 +1,7 @@
-const SingletonMulti = require('../patterns/Singleton.multi.class.js');
-const SingletonMulti1 = require('../patterns/Singleton.multi1.class.js');
-const SingletonSimple = require('../patterns/Singleton.simple.class.js');
-const SingletonSimple1 = require('../patterns/Singleton.simple1.class.js');
+const SingletonMulti = require('../patterns/Singleton/Singleton.multi.class.js');
+const SingletonMulti1 = require('../patterns/Singleton/Singleton.multi1.class.js');
+const SingletonSimple = require('../patterns/Singleton/Singleton.simple.class.js');
+const SingletonSimple1 = require('../patterns/Singleton/Singleton.simple1.class.js');
 const assert = require('assert');
 
 
