@@ -83,3 +83,7 @@ ES6 中新增了一个代理类 [参考链接](http://es6.ruanyifeng.com/#docs/p
 ## Proxy.common.class.js
 
 普通的代理模式
+
+## Proxy.dynamic.class.js
+
+动态代理, 此处使用 ES6 Proxy 实现对类中函数访问的代理
