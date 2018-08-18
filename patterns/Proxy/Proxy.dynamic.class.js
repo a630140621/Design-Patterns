@@ -14,7 +14,7 @@ class Mysql {
     }
 
     query(sql) {
-        console.log(`exec sql`)
+        return `exec sql`
     }
 
     say() {
@@ -27,8 +27,16 @@ class MysqlProxy {
         this.proxy = new Proxy(MysqlProxy.mysql, {
             get(target, propKey, receiver) {
                 if (typeof target[propKey] === 'function') {
-                    console.log('你调用的是一个 Mysql 实例的方法, 这里是预处理')
-                    return Reflect.get(...arguments)
+                    // 对类中所有的方法进行代理
+                    return new Proxy(target[propKey], {
+                        apply(target, object, args) {
+                            console.log('你调用的是一个 Mysql 实例的方法, 这里是预处理')
+                            // console.log(`你正在调用函数 ${target.name} 参数为 ${args}`)
+                            let ret = Reflect.apply(...arguments)
+                            console.log(`这是函数调用的后续处理`)
+                            return ret;
+                        }
+                    })
                 } else {
                     return Reflect.get(...arguments)
                 }
@@ -43,7 +51,7 @@ MysqlProxy.mysql = new Mysql()
 
 
 let mysqlProxy = new MysqlProxy()
-mysqlProxy.query('sql')
+console.log(mysqlProxy.query('sql'))
 mysqlProxy.say()
 mysqlProxy.name
 mysqlProxy.object
