@@ -20,18 +20,20 @@ class ProfessionNode {
     constructor(name) {
         this.name = name
         // 所有节点的父亲节点和根节点, 没有的话则为空数组
-        this.parent = []
+        this.parent = null
+        // 节点顺序,先 add 的在前
+        this.number = ProfessionNode.number
+        ProfessionNode.number++
     }
 
     getInfo() {
-        let info = '这个节点的所有子节点为: '
-        for (let child of this.children) {
-            info += `${child.name}, `
-        }
+        let parent = this.parent ? this.parent.name : ''
+        let info = `我是${this.number}号节点: ${this.name} 父节点是: ${parent} \n`
 
         return info
     }
 }
+ProfessionNode.number = 0
 
 class ProfessionBranch extends ProfessionNode {
     constructor(name) {
@@ -41,12 +43,22 @@ class ProfessionBranch extends ProfessionNode {
 
     add(node) {
         // 设置父节点
-        node.parent.push(this)
+        node.parent = this
         this.children.push(node)
     }
 
     getChildren() {
         return this.children
+    }
+
+    remove(node) {
+        // 可以使用 start 来判断这样会减少一个方法的调用
+        if (this.children.includes(node)) {
+            let start = this.children.indexOf(node)
+            this.children.splice(start, 1)
+        } else {
+            throw new Error('在这个节点上没有发现该子节点')
+        }
     }
 }
 
@@ -89,6 +101,8 @@ function genTree() {
     profession.add(cai)
     profession.add(zhi)
     profession.add(zhu)
+    // 移除节点 nong
+    profession.remove(nong)
 
     nong.add(nong_1)
     nong.add(nong_2)
@@ -114,11 +128,9 @@ let professionTree = genTree()
 
 // 打印这棵树
 function getTreeInfo(tree) {
-    let info = `树枝节点: ${tree.name} \n`
+    let info = `${tree.getInfo()}`
     for (let child of tree.children) {
-        if (child instanceof ProfessionLeaf) {
-            info += `叶子节点: ${child.name} \n`
-        } else {
+        if (child instanceof ProfessionBranch) {
             info += getTreeInfo(child)
         }
     }
