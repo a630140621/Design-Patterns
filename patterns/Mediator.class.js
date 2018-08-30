@@ -1,1 +1,4 @@
-// 暂想不到合适的例子, waiting
+/**
+ * https://www.kancloud.cn/kancloud/learn-js-design-patterns/56467
+ * 
+ */
