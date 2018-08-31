@@ -200,7 +200,7 @@ ES6 中新增了一个代理类 [参考链接](http://es6.ruanyifeng.com/#docs/p
 
 ### Memento.sample.class.js
 
-一个简单的分页控件, 使用备忘录模式来进行先前页面的缓存
+一个简单的分页控件, 使用备忘录模式来进行先前页面的存储
 
 ### Memento.sample2.class.js
 
