@@ -14,6 +14,7 @@ class Shop extends EventEmitter {
 class User {
     constructor(name) {
         this.name = name
+        this.buy = this.buy.bind(this)
     }
 
     buy(product) {
@@ -26,8 +27,8 @@ let lisi = new User('李四')
 
 let shop = new Shop()
 // 注册事件
-shop.on('promotion', zhangsan.buy.bind(zhangsan))
-shop.on('promotion', lisi.buy.bind(lisi))
+shop.on('promotion', zhangsan.buy)
+shop.on('promotion', lisi.buy)
 // 触发事件
 shop.emit('promotion', '苹果')
 
@@ -55,7 +56,7 @@ class User1 {
         this.name = name
 
         // 绑定使用了 this 的方法, 学自 React
-        // this.buy.bind(this)
+        this.buy = this.buy.bind(this)
     }
 
     on(eventName, fn, ...args) {
@@ -69,9 +70,9 @@ class User1 {
 
 let wangwu = new User1('王五')
 let xiaohong = new User1('小红')
-wangwu.on('promotion', wangwu.buy.bind(wangwu))
-xiaohong.on('promotion', xiaohong.buy.bind(xiaohong))
-xiaohong.on('promotion', xiaohong.buy.bind(xiaohong))
+wangwu.on('promotion', wangwu.buy)
+xiaohong.on('promotion', xiaohong.buy)
+xiaohong.on('promotion', xiaohong.buy)
 let shop1 = new Shop1()
 shop1.emit('promotion', '香蕉')
 
