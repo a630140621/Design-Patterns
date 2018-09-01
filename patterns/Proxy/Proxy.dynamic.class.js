@@ -25,10 +25,10 @@ class Mysql {
 class MysqlProxy {
     constructor() {
         this.proxy = new Proxy(MysqlProxy.mysql, {
-            get(target, propKey, receiver) {
-                if (typeof target[propKey] === 'function') {
+            get(target, ctx, args) {
+                if (typeof target[ctx] === 'function') {
                     // 对类中所有的方法进行代理
-                    return new Proxy(target[propKey], {
+                    return new Proxy(target[ctx], {
                         apply(target, object, args) {
                             console.log('你调用的是一个 Mysql 实例的方法, 这里是预处理')
                             // console.log(`你正在调用函数 ${target.name} 参数为 ${args}`)
