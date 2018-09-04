@@ -8,78 +8,127 @@
  * 下面使用 js 来模拟 java 的状态模式
  * java 写法状态过多导致类和需要实现的函数都变得很多, 这里的实现只使用三个状态 下载, 暂停, 停止
  */
-class Context {
-    constructor(state) {
-        this.state = state
-    }
-
-    setState(state) {
-        // 是否需要判断传入类型是否为 状态类的实例, 有待进一步思考???
-        if (state instanceof State) {
-            this.state = state
-        } else {
-            throw new Error(`请传入一个状态类的子类`)
-        }
-    }
-}
-
 class State {
-    download(context) {
-        throw new Error(`子类必须覆写这个方法`)
-    }
-    pause(context) {
-        throw new Error(`子类必须覆写这个方法`)
-    }
-    stop(context) {
-        throw new Error(`子类必须覆写这个方法`)
-    }
-}
+    constructor() {
 
-class ReadyState extends State {
-    download(context) {
-        console.log(`开始下载`)
-        context.setState()
     }
-    pause(context) {
-        throw new Error(`准备状态下点了暂停也没有用`)
+
+    setContext(context) {
+        this.context = context
     }
-    stop(context) {
-        throw new Error(`准备状态下点了停止也没有用`)
+
+    download() {
+        throw new Error(`子类必须覆写这个方法`)
+    }
+
+    pause() {
+        throw new Error(`子类必须覆写这个方法`)
+    }
+
+    stop() {
+        throw new Error(`子类必须覆写这个方法`)
     }
 }
 
 class DownloadState extends State {
-    download(context) {
-        console.log(`已经在下载了...`)
-        context.setState(this)
+    constructor() {
+        super()
     }
-    pause(context) {
+
+    download() {
+        console.log(`开始下载...`)
     }
-    stop(context) {
+
+    pause() {
+        this.context.setCurrentState(this.context.PauseState)
+        this.context.pause()
+    }
+
+    stop() {
+        this.context.setCurrentState(this.context.StopState)
+        this.context.stop()
     }
 }
 
 class PauseState extends State {
-    download(context) {
-        console.log(`已经在下载了...`)
+    constructor() {
+        super()
     }
-    pause(context) {
+
+    download() {
+        this.context.setCurrentState(this.context.DownloadState)
+        this.context.download()
+    }
+
+    pause() {
         console.log(`下载暂停...`)
-        context.setState(this)
     }
-    stop(context) {
-        console.log(`下载停止...`)
+
+    stop() {
+        this.context.setCurrentState(this.context.StopState)
+        this.context.stop()
     }
 }
 
 class StopState extends State {
-    download(context) {
+    constructor() {
+        super()
     }
-    pause(context) {
+
+    download() {
+        this.context.setCurrentState(this.context.DownloadState)
+        this.context.download()
+    }
+
+    pause() {
         throw new Error(`下载已经结束了, 不能暂停了`)
     }
-    stop(context) {
+
+    stop() {
         console.log(`下载结束...`)
-        context.setState(this)
     }
 }
+
+class Context {
+    constructor() {
+        this.DownloadState = new DownloadState()
+        this.PauseState = new PauseState()
+        this.StopState = new StopState()
+
+        this.setCurrentState = this.setCurrentState.bind(this)
+        this.download = this.download.bind(this)
+        this.pause = this.pause.bind(this)
+        this.stop = this.stop.bind(this)
+    }
+
+    setCurrentState(currentState) {
+        this.currentState = currentState
+        // 切换状态
+        this.currentState.setContext(this)
+    }
+
+    download() {
+        this.currentState.download()
+    }
+
+    pause() {
+        this.currentState.pause()
+    }
+
+    stop() {
+        this.currentState.stop()
+    }
+}
+
+
+// 业务调用
+let context = new Context()
+context.setCurrentState(new DownloadState())
+context.download()
+context.pause()
+context.download()
+context.stop()
+
+
+// 虽然可以正常运行了, 但是我还是有点没有理解原因, 而且这种写法对js来说实在是太复杂(绕)了
+// js 和 java 在类上的差异太大, 所以在js中, 可以使用函数这个一等公民来解决很多麻烦的事情
