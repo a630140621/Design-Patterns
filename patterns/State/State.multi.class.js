@@ -56,3 +56,5 @@ let superMarry = new SuperMarry()
 superMarry.setState(['jump']).run().setState(['move', 'shoot']).run().setState(['jump', 'move', 'squat']).run()
 
 // 这里没有体现从一个状态到另一个状态, 也没有体现一个状态下能做某些事情不能做某些事情
+
+// 其实这个从理解上来说不算是状态模式, 因为数组中存的不是状态而是动作
