@@ -48,6 +48,8 @@ class PubSub {
 class User {
     constructor(name) {
         this.name = name
+
+        this.buy = this.buy.bind(this)
     }
 
     buy(product) {
@@ -69,10 +71,10 @@ let xiaofang = new User('小芳')
 let zhangsan = new User('张三')
 
 let pubSub = new PubSub()
-pubSub.subscribe('promotion', xiaohong.buy.bind(xiaohong))
-pubSub.subscribe('promotion', xiaolan.buy.bind(xiaolan))
-pubSub.subscribe('promotion', xiaofang.buy.bind(xiaofang))
-let id1 = pubSub.subscribe('promotion', zhangsan.buy.bind(zhangsan))
+pubSub.subscribe('promotion', xiaohong.buy)
+pubSub.subscribe('promotion', xiaolan.buy)
+pubSub.subscribe('promotion', xiaofang.buy)
+let id1 = pubSub.subscribe('promotion', zhangsan.buy)
 
 pubSub.publish('promotion', '苹果')
 
@@ -90,6 +92,8 @@ class User1 {
     constructor(name, pubSub) {
         this.name = name
         this.pubSub = pubSub
+
+        this.buy = this.buy.bind(this)
     }
 
     buy(product) {
@@ -120,9 +124,9 @@ let lu = new User1('卢', pubSub1)
 let zhang = new User1('张', pubSub1)
 let shop1 = new Shop1(pubSub1)
 
-liu.subscribe('promotion', liu.buy.bind(liu))
-lu.subscribe('promotion', lu.buy.bind(lu))
-zhang.subscribe('promotion', zhang.buy.bind(zhang))
+liu.subscribe('promotion', liu.buy)
+lu.subscribe('promotion', lu.buy)
+zhang.subscribe('promotion', zhang.buy)
 shop1.promote('苹果')
 
 // 事件被封装在了 Shop1 类中, 调用了 Shop1 类中的某些方法会自动发布一些事件, 只要和 传入 Shop1 中 pubSub 这个实例耦合均可对这些事件进行订阅
